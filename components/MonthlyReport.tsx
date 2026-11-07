@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { ArrowDownRight, ArrowUpRight, ChartNoAxesCombined, PiggyBank, TrendingUp } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, PiggyBank, TrendingUp } from "lucide-react";
 import type { Transaction } from "@/lib/data";
 import { money } from "@/lib/data";
 import { calculateMonthlyHistory, totalMonthlyHistory } from "@/lib/monthly-report";
