@@ -30,6 +30,10 @@ export default function Home(){
  async function add(t:Transaction){if(isConfigured){if(!userId)throw new Error("Sessão inválida");const {data,error}=await createClient().from("transactions").insert({...t,user_id:userId}).select("id,title,category,date,amount,type").single();if(error){notify("error","Não foi possível guardar. Verifique a ligação à base de dados.");throw error}setTransactions(prev=>[{...(data as DbRow),amount:Number(data.amount)},...prev]);}
  else setTransactions(prev=>{const next=[t,...prev];localStorage.setItem("wc-demo-transactions",JSON.stringify(next));return next});notify("success","Transação registada.")}
  async function remove(id:string){if(isConfigured){const {error}=await createClient().from("transactions").delete().eq("id",id);if(error){notify("error","Não foi possível eliminar a transação.");return}}setTransactions(prev=>{const next=prev.filter(t=>t.id!==id);if(!isConfigured)localStorage.setItem("wc-demo-transactions",JSON.stringify(next));return next});notify("success","Transação eliminada.")}
+ // A public deployment must never silently turn into a local demo if configuration is missing.
+ if(process.env.NODE_ENV==="production" && !isConfigured){
+  return <main className="loading" role="alert">Well<span>Controled</span><p style={{fontSize:16,fontWeight:400,textAlign:"center",marginTop:20}}>Serviço temporariamente indisponível. Contacte o administrador.</p></main>;
+ }
  if(!ready)return <div className="loading">Well<span>Controled</span></div>;
  return <><Toast toast={toast} onDismiss={dismiss}/>{name?<Dashboard name={name} theme={theme} onTheme={toggle} onLogout={()=>void logout()} transactions={transactions} onAdd={add} onDelete={remove}/>:<Login onLogin={login} onRegister={register} loading={loading} realAuth={isConfigured} theme={theme} onTheme={toggle}/>}</>;
 }
