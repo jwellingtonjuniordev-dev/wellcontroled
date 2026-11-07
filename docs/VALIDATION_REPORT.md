@@ -14,9 +14,10 @@ Ambiente: Supabase dedicado `gxtsnmdrohaehssigmfk`, Vercel produção.
 | Isolamento de acesso | PASSOU | Segunda identidade simulada: SELECT sem dados; UPDATE e DELETE com 0 linhas; INSERT para outro `user_id` recusado por RLS |
 | Integridade dos dados | PASSOU | Testes encapsulados por BEGIN/ROLLBACK; total confirmado em 2 transações após testes |
 | Auditoria de segurança | AVISO | Leaked Password Protection do Supabase Auth desativada |
-| Sessão após refresh | PENDENTE | Requer teste real em navegador |
-| Sessão após fechar/reabrir navegador | PENDENTE | Requer teste real em navegador |
-| Logout e navegação protegida | PENDENTE | Requer teste real em navegador |
+| Sessão após refresh | PASSOU (teste manual reportado) | O proprietário confirmou que a sessão permanece após F5 |
+| Sessão após fechar/reabrir navegador | PASSOU (teste manual reportado) | O proprietário confirmou persistência após reabrir |
+| Logout e navegação protegida | PASSOU (teste manual reportado) | Depois do logout, o dashboard deixa de ser apresentado |
+| Persistência de transações após refresh | PASSOU (teste manual reportado) | O proprietário confirmou que os registos permanecem após F5 |
 | Teste E2E com duas contas | PENDENTE | As regras RLS foram testadas com identidades simuladas, não com dois utilizadores autenticados via cliente |
 | Toast em 5 segundos | REVISÃO DE CÓDIGO | `components/Toast.tsx` usa `setTimeout(onDismiss, 5000)`; falta teste de interface |
 | Compilação remota com TypeScript | PASSOU | Registos de compilação da Vercel |
@@ -48,3 +49,13 @@ As consultas foram executadas com `SET LOCAL ROLE authenticated` e valores de `r
 Ativar a proteção de senhas comprometidas em Supabase Auth: https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection
 
 Até à conclusão dos testes E2E, utilizar dados fictícios e não colocar dados financeiros sensíveis na aplicação.
+
+## Revisão complementar (2026-11-07)
+
+Os quatro testes funcionais (F5, reabrir o navegador, persistência das transações e logout) foram reportados como **PASSOU** pelo proprietário. São evidências de execução manual; não são testes automatizados nem garantem o mesmo comportamento em todos os navegadores.
+
+Foi encontrado um risco de configuração independente desses resultados: quando faltam as variáveis públicas do Supabase, a aplicação antiga entra no modo de demonstração mesmo em produção. A branch `fix/prod-auth-fail-closed` altera a renderização de produção para mostrar uma mensagem de indisponibilidade nesse caso. O ambiente de desenvolvimento continua a permitir a demonstração local. **A alteração exige compilação e verificação em Preview antes de merge.**
+
+O projeto continua a utilizar a rota principal `/` para login e dashboard no cliente. A UI oculta o dashboard sem sessão; o isolamento dos registos financeiros é garantido pelo RLS na base de dados. Uma futura evolução pode criar rotas de dashboard autenticadas no servidor.
+
+**Pendente:** testar duas contas reais, verificar o tempo de 5 s das notificações na UI e ativar a verificação de senhas comprometidas no Supabase Auth.
