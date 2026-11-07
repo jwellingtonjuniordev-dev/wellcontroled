@@ -40,3 +40,15 @@ O estado refere-se ao código da versão demonstrativa inicial, e não a uma ver
 - [ ] Testar duas contas, token refresh e políticas RLS no serviço real
 - [ ] Concluir instalação, typecheck, build e testes E2E
 - [ ] Ligar GitHub e criar deploy Vercel de produção
+
+## Atualização v0.3 — Relatório financeiro mensal (branch em revisão)
+- [x] Resumo do mês atual com receitas, despesas, investimentos e poupança
+- [x] Histórico mensal móvel de 12 meses com tabela e gráfico
+- [x] Evolução financeira dos últimos seis meses baseada em transações reais
+- [x] Categorias Investimentos e Poupança no registo de transações
+- [x] Cálculos isolados em `lib/monthly-report.ts` e testes unitários
+- [x] CI configurado para executar testes, TypeScript e build
+- [ ] Validar interface visual, acessibilidade e testes E2E com dois utilizadores
+- [ ] Concluir revisão, merge e deploy de produção
+
+A versão v0.2 já possui PostgreSQL e autenticação no Supabase, e o deploy inicial está operacional. Os quatro testes de persistência e logout passaram manualmente. Ver `docs/VALIDATION_REPORT.md` para distinção entre testes SQL, testes manuais e pendências.
