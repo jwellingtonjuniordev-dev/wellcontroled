@@ -18,3 +18,38 @@
 @keyframes wc-progress{to{width:0}}.link-button{border:0;background:none;color:var(--primary,#10b981);cursor:pointer;font-weight:650;text-decoration:underline}.primary-button:disabled{opacity:.6;cursor:wait}
 @media(max-width:560px){.wc-toast{left:16px;right:16px;top:16px;max-width:none}}
 @media(prefers-reduced-motion:reduce){.wc-toast-progress{animation:none}}
+
+
+/* Rolling twelve-month financial report */
+.monthly-report{padding:25px;margin-bottom:20px;min-width:0}
+.monthly-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:23px}
+.monthly-heading h2{font-size:20px;letter-spacing:-.4px;margin:0 0 7px}
+.monthly-subtitle{font-size:12px;color:var(--muted);margin:0}
+.monthly-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.monthly-metric{border-radius:11px;border:1px solid var(--border);padding:16px 13px;min-width:0;background:var(--surface-alt)}
+.monthly-metric-label{display:flex;align-items:center;gap:7px;color:var(--muted);font-weight:650;font-size:12px;white-space:nowrap}
+.monthly-metric strong{display:block;margin-top:12px;font-size:clamp(15px,1.5vw,22px);letter-spacing:-.4px;overflow-wrap:anywhere}
+.monthly-balance{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;margin:18px 0 0;padding:16px 18px;border-radius:11px;background:var(--green-bg);font-size:13px;font-weight:650}
+.monthly-balance strong{font-size:clamp(17px,2vw,23px)}
+.monthly-positive{color:var(--primary)!important;font-weight:750}
+.monthly-negative{color:#e11d48!important;font-weight:750}
+.monthly-legend{display:flex;flex-wrap:wrap;gap:13px 22px;padding:24px 0 15px;color:var(--muted);font-size:12px}
+.monthly-legend span{display:flex;align-items:center;gap:7px}
+.monthly-legend i{height:9px;width:9px;border-radius:50%;display:inline-block}
+.monthly-plot{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:7px;min-height:188px;padding:15px 10px 8px;border-bottom:1px solid var(--border);background:var(--surface-alt);border-radius:12px;margin-bottom:23px}
+.monthly-plot-month{display:flex;flex-direction:column;justify-content:end;min-width:0;gap:7px;text-align:center}
+.monthly-bars{height:142px;display:flex;align-items:flex-end;justify-content:center;gap:2px;border-bottom:1px solid var(--border)}
+.monthly-bars span{display:block;flex:1;max-width:13px;min-width:2px;border-radius:3px 3px 0 0;transition:height .2s}
+.monthly-month-label{font-size:10px;text-transform:capitalize;color:var(--muted);white-space:nowrap}
+.monthly-history-scroll{overflow-x:auto}
+.monthly-history-table{min-width:700px}
+.monthly-history-table caption{text-align:left;padding:5px 0 12px;font-size:13px;color:var(--muted)}
+.monthly-history-table td,.monthly-history-table th{font-variant-numeric:tabular-nums}
+.monthly-history-table th:first-child{text-align:left}
+.monthly-history-table td{text-align:right;white-space:nowrap}
+.monthly-history-table tr th{font-size:12px;color:var(--foreground);font-weight:650;border-bottom:1px solid var(--border);padding:12px 10px;white-space:nowrap}
+.monthly-history-table thead th:not(:first-child){text-align:right}
+.monthly-history-table tbody tr:hover{background:var(--surface-alt)}
+.monthly-explanation{font-size:12px;line-height:1.7;color:var(--muted);margin:18px 0 0}
+@media(max-width:1100px){.monthly-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.monthly-report{padding:18px 14px}.monthly-heading{align-items:flex-start;flex-direction:column}.monthly-metrics{gap:8px}.monthly-metric{padding:12px 9px}.monthly-metric-label{font-size:11px}.monthly-plot{gap:3px;padding:12px 4px 8px}.monthly-month-label{font-size:9px}}
